@@ -1,10 +1,21 @@
-
 import streamlit as st
 import tensorflow as tf
 import numpy as np
 from PIL import Image
+import gdown
+import os
 
-model = tf.keras.models.load_model('C:/Users/dell/Downloads/best_model.keras')
+# === Download model from Google Drive ===
+MODEL_PATH = "best_model.keras"
+MODEL_URL = "https://drive.google.com/file/d/1C_iZxRwAF6NC5ZcR01jqgegXKS0YNFxJ/view?usp=sharing"  # Replace with your real file ID
+
+if not os.path.exists(MODEL_PATH):
+    with st.spinner("Downloading model..."):
+        gdown.download(MODEL_URL, MODEL_PATH, quiet=False)
+
+# === Load model ===
+model = tf.keras.models.load_model(MODEL_PATH)
+
 class_names = ['CaS', 'CoS', 'Gum', 'MC', 'OC', 'OLP', 'OT']
 
 # Title
